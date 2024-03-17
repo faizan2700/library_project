@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', 
+    # 3rd party apps 
+    'rest_framework', 
 
+    # dev apps 
     'main', 
 ]
 
@@ -77,8 +80,12 @@ WSGI_APPLICATION = 'library.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'library_db', 
+        'HOST': 'localhost', 
+        'PORT': '5432', 
+        'USER': 'postgres', 
+        'PASSWORD': 'admin', 
     }
 }
 
