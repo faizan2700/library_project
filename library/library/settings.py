@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', 
     # 3rd party apps 
     'rest_framework', 
+    'django_filters', 
 
     # dev apps 
     'main', 
@@ -132,3 +133,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'main.User' 
+
+REST_FRAMEWORK = { 
+    'DEFAULT_FILTER_BACKENDS': [ 
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
+}
