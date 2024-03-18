@@ -1,0 +1,1 @@
+psql -U postgres -d library_db -c "\copy (SELECT * FROM books_subject) TO 'books_subject.csv' WITH CSV HEADER ENCODING 'UTF-8';" --password=admin 
