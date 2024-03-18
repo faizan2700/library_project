@@ -23,7 +23,11 @@ class BookFilter(filters.FilterSet):
         return qs.filter(mediatype__in=value.split(',')) 
 
     def search_multiple_titles(self, qs, name, value): 
-        return qs.filter(title__in=value.split(',')) 
+        q = Q() 
+        values = value.split(',') 
+        for value in values: 
+            q |= Q(title__icontains=value) 
+        return qs.filter(q) 
 
     def search_multiple_languages(self, qs, name, value):
         return qs.filter(booklanguages__language__code__in=value.split(',')) 
