@@ -5,12 +5,12 @@ from django_filters import rest_framework as filters
 from main.models import Book 
 
 class BookFilter(filters.FilterSet): 
-    gutenberg_id=filters.CharFilter(method='search_multiple_ids', label='gutenberg_ids') 
-    media_type=filters.CharFilter(method='search_multiple_mediatypes', label='mediatype') 
-    title = filters.CharFilter(method='search_multiple_titles', label='titles') 
-    language = filters.CharFilter(method='search_multiple_languages', label='languages') 
-    author = filters.CharFilter(method='search_multiple_authors', label='authors') 
-    topic = filters.CharFilter(method='search_multiple_topics', label='topics')  
+    gutenberg_id=filters.CharFilter(method='search_multiple_ids', label='gutenberg_id') 
+    mime_type=filters.CharFilter(method='search_multiple_mime_types', label='mime_type') 
+    title = filters.CharFilter(method='search_multiple_titles', label='title') 
+    language = filters.CharFilter(method='search_multiple_languages', label='language') 
+    author = filters.CharFilter(method='search_multiple_authors', label='author') 
+    topic = filters.CharFilter(method='search_multiple_topics', label='topic')  
 
     class Meta: 
         model = Book 
@@ -19,8 +19,8 @@ class BookFilter(filters.FilterSet):
     def search_multiple_ids(self, qs, name, value): 
         return qs.filter(gutenberg_id__in=value.split(',')) 
     
-    def search_multiple_media_types(self, qs, name, value): 
-        return qs.filter(mediatype__in=value.split(',')) 
+    def search_multiple_mime_types(self, qs, name, value): 
+        return qs.filter(format__mime_type__in=value.split(',')) 
 
     def search_multiple_titles(self, qs, name, value): 
         q = Q() 

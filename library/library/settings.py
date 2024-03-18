@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # 3rd party apps 
     'rest_framework', 
     'django_filters', 
+    'django_extensions', 
 
     # dev apps 
     'main', 
