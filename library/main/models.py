@@ -21,7 +21,8 @@ class Book(models.Model):
     download_count = models.IntegerField(blank=True, null=True)
     gutenberg_id = models.IntegerField(unique=True)
     media_type = models.CharField(max_length=16)
-    title = models.CharField(max_length=1024, blank=True, null=True)
+    title = models.CharField(max_length=1024, blank=True, null=True) 
+    authors = models.ManyToManyField('Author', related_name='books', related_query_name='books', through='BookAuthors') 
 
     class Meta:
         db_table = 'books_book'
@@ -30,8 +31,8 @@ class Book(models.Model):
         return self.title 
 
 class BookAuthors(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    author = models.ForeignKey(Author, models.DO_NOTHING)
+    book = models.ForeignKey(Book, models.DO_NOTHING, null=True)
+    author = models.ForeignKey(Author, models.DO_NOTHING, null=True)
 
     class Meta:
         db_table = 'books_book_authors'
@@ -41,8 +42,8 @@ class BookAuthors(models.Model):
         return f'{self.book.title} {self.author.name}' 
 
 class Bookshelves(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    bookshelf = models.ForeignKey('Bookshelf', models.DO_NOTHING)
+    book = models.ForeignKey(Book, models.DO_NOTHING, null=True)
+    bookshelf = models.ForeignKey('Bookshelf', models.DO_NOTHING, null=True)
 
     class Meta:
         db_table = 'books_book_bookshelves'
@@ -52,8 +53,8 @@ class Bookshelves(models.Model):
         return f'{self.bookshelf.name} {self.book.title}'
 
 class BookLanguages(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    language = models.ForeignKey('Language', models.DO_NOTHING)
+    book = models.ForeignKey(Book, models.DO_NOTHING, null=True)
+    language = models.ForeignKey('Language', models.DO_NOTHING, null=True)
 
     class Meta:
         db_table = 'books_book_languages'
@@ -64,8 +65,8 @@ class BookLanguages(models.Model):
 
 
 class BookSubjects(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    subject = models.ForeignKey('Subject', models.DO_NOTHING)
+    book = models.ForeignKey(Book, models.DO_NOTHING, null=True)
+    subject = models.ForeignKey('Subject', models.DO_NOTHING, null=True)
 
     class Meta:
         db_table = 'books_book_subjects'
@@ -88,7 +89,7 @@ class Bookshelf(models.Model):
 class Format(models.Model):
     mime_type = models.CharField(max_length=32)
     url = models.CharField(max_length=256)
-    book = models.ForeignKey(Book, models.DO_NOTHING)
+    book = models.ForeignKey(Book, models.DO_NOTHING, null=True)
 
     class Meta:
         db_table = 'books_format'
