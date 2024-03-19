@@ -23,7 +23,6 @@ class TestBookAuthors(TestCase):
 
         Author.objects.all().delete() 
 
-
 class TestBookSubjects(TestCase): 
     def test_subjects_created(self): 
         Subject.objects.create(name='subject1') 
