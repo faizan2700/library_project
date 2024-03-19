@@ -17,7 +17,7 @@ class CustomPagination(PageNumberPagination):
 
 class BookViewSet(ModelViewSet): 
     allowed_methods = ['GET', 'POST', 'PUT', 'DELETE'] 
-    queryset = Book.objects.all().order_by(F('download_count').desc(nulls_last=True)) 
+    queryset = Book.objects.order_by(F('download_count').desc(nulls_last=True)).prefetch_related('authors', 'languages', 'subjects', 'bookshelves', 'format_set')
     serializer_class = BookSerializer 
     pagination_class = CustomPagination
     permission_classes = [AllowAny, ] 

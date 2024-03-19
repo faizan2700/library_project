@@ -51,3 +51,4 @@ class BookSerializer(ModelSerializer):
     
     def get_formats(self, book): 
         return Format.objects.filter(book=book).values_list('url', flat=True) 
+        
