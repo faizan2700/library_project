@@ -21,7 +21,11 @@ class Book(models.Model):
     download_count = models.IntegerField(blank=True, null=True)
     gutenberg_id = models.IntegerField(unique=True)
     media_type = models.CharField(max_length=16)
-    title = models.CharField(max_length=1024, blank=True, null=True)
+    title = models.CharField(max_length=1024, blank=True, null=True) 
+    authors = models.ManyToManyField(Author, related_name='books', related_query_name='books') 
+    subjects = models.ManyToManyField('Subject', related_name='books', related_query_name='books') 
+    languages = models.ManyToManyField('Language', related_name='books', related_query_name='books') 
+    bookshelves = models.ManyToManyField('Bookshelf', related_name='books', related_query_name='books') 
 
     class Meta:
         db_table = 'books_book'
@@ -29,50 +33,50 @@ class Book(models.Model):
     def __str__(self): 
         return self.title 
 
-class BookAuthors(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    author = models.ForeignKey(Author, models.DO_NOTHING)
+# class BookAuthors(models.Model):
+#     book = models.ForeignKey(Book, models.DO_NOTHING)
+#     author = models.ForeignKey(Author, models.DO_NOTHING)
 
-    class Meta:
-        db_table = 'books_book_authors'
-        unique_together = (('book', 'author'),)
+#     class Meta:
+#         db_table = 'books_book_authors'
+#         unique_together = (('book', 'author'),)
 
-    def __str__(self): 
-        return f'{self.book.title} {self.author.name}' 
+#     def __str__(self): 
+#         return f'{self.book.title} {self.author.name}' 
 
-class Bookshelves(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    bookshelf = models.ForeignKey('Bookshelf', models.DO_NOTHING)
+# class Bookshelves(models.Model):
+#     book = models.ForeignKey(Book, models.DO_NOTHING)
+#     bookshelf = models.ForeignKey('Bookshelf', models.DO_NOTHING)
 
-    class Meta:
-        db_table = 'books_book_bookshelves'
-        unique_together = (('book', 'bookshelf'),)
+#     class Meta:
+#         db_table = 'books_book_bookshelves'
+#         unique_together = (('book', 'bookshelf'),)
 
-    def __str__(self): 
-        return f'{self.bookshelf.name} {self.book.title}'
+#     def __str__(self): 
+#         return f'{self.bookshelf.name} {self.book.title}'
 
-class BookLanguages(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    language = models.ForeignKey('Language', models.DO_NOTHING)
+# class BookLanguages(models.Model):
+#     book = models.ForeignKey(Book, models.DO_NOTHING)
+#     language = models.ForeignKey('Language', models.DO_NOTHING)
 
-    class Meta:
-        db_table = 'books_book_languages'
-        unique_together = (('book', 'language'),) 
+#     class Meta:
+#         db_table = 'books_book_languages'
+#         unique_together = (('book', 'language'),) 
 
-    def __str__(self): 
-        return f'{self.book.title} {self.language.code}'
+#     def __str__(self): 
+#         return f'{self.book.title} {self.language.code}'
 
 
-class BookSubjects(models.Model):
-    book = models.ForeignKey(Book, models.DO_NOTHING)
-    subject = models.ForeignKey('Subject', models.DO_NOTHING)
+# class BookSubjects(models.Model):
+#     book = models.ForeignKey(Book, models.DO_NOTHING)
+#     subject = models.ForeignKey('Subject', models.DO_NOTHING)
 
-    class Meta:
-        db_table = 'books_book_subjects'
-        unique_together = (('book', 'subject'),) 
+#     class Meta:
+#         db_table = 'books_book_subjects'
+#         unique_together = (('book', 'subject'),) 
 
-    def __str__(self): 
-        return f'{self.book.title} {self.subject.name}' 
+#     def __str__(self): 
+#         return f'{self.book.title} {self.subject.name}' 
 
 
 class Bookshelf(models.Model):

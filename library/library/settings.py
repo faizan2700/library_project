@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,7 +81,7 @@ WSGI_APPLICATION = 'library.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'library_db', 
+        'NAME': 'library1_db', 
         'HOST': 'localhost', 
         'PORT': '5432', 
         'USER': 'postgres', 
