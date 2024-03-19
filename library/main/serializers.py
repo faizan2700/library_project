@@ -35,7 +35,7 @@ class BookSerializer(ModelSerializer):
     formats = SerializerMethodField() 
     class Meta: 
         model = Book 
-        fields = '__all__' 
+        fields = ('gutenberg_id', 'title', 'authors', 'languages', 'subjects', 'shelves', 'formats')
 
     def get_authors(self, book): 
         qs1 = BookAuthors.objects.filter(book=book).values_list('author', flat=True) 
