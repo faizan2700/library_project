@@ -19,8 +19,26 @@ class BookFilter(filters.FilterSet):
     def search_multiple_ids(self, qs, name, value): 
         return qs.filter(gutenberg_id__in=value.split(',')) 
     
+    def search_multiple_languages(self, qs, name, value):
+        return qs.filter(languages__code__in=value.split(',')) 
+    
     def search_multiple_mime_types(self, qs, name, value): 
         return qs.filter(format__mime_type__in=value.split(',')) 
+
+    def search_multiple_topics(self, qs, name, value): 
+        q = Q() 
+        values = value.split(',') 
+        for value in values: 
+            q |= Q(subjects__name__icontains=value) | Q(bookshelves__name__icontains=value) 
+        qs = qs.filter(q)  
+        return qs 
+    
+    def search_multiple_authors(self, qs, name, value):
+        values = value.split(',') 
+        q = Q() 
+        for value in values: 
+            q |= Q(authors__name__icontains=value)  
+        return qs.filter(q) 
 
     def search_multiple_titles(self, qs, name, value): 
         q = Q() 
@@ -28,17 +46,3 @@ class BookFilter(filters.FilterSet):
         for value in values: 
             q |= Q(title__icontains=value) 
         return qs.filter(q) 
-
-    def search_multiple_languages(self, qs, name, value):
-        return qs.filter(booklanguages__language__code__in=value.split(',')) 
-    
-    def search_multiple_authors(self, qs, name, value): 
-        return qs.filter(bookauthors__author__name__in=value.split(',')) 
-
-    def search_multiple_topics(self, qs, name, value): 
-        q = Q() 
-        values = value.split(',') 
-        for value in values: 
-            q |= Q(booksubjects__subject__name__icontains=value) | Q(bookshelves__bookshelf__name__icontains=value) 
-        qs = qs.filter(q)  
-        return qs 

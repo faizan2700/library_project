@@ -64,11 +64,14 @@ def populate_table(file_path, model):
     return model.objects.all().count() 
 
 def populate_table_helper(): 
+    print(populate_table('./main/dump/books_author.csv', Author)) 
+    print(populate_table('./main/dump/books_book.csv', Book)) 
+    print(populate_table('./main/dump/books_format.csv', Format))
     print(populate_table('./main/dump/books_language.csv', Language))
-    #print(populate_table('./main/dump/books_subject.csv', Subject)) 
-    #print(populate_table('./main/dump/books_bookshelf.csv', Bookshelf)) 
+    print(populate_table('./main/dump/books_subject.csv', Subject)) 
+    print(populate_table('./main/dump/books_bookshelf.csv', Bookshelf)) 
     
-
+    populate_many_to_many_field_helper() 
 
 def populate_many_to_many_field(model1, model2, manager, file): 
     gen = read_file(file) 
@@ -80,8 +83,8 @@ def populate_many_to_many_field(model1, model2, manager, file):
         getattr(obj1, manager).add(obj2)  
 
 def populate_many_to_many_field_helper(): 
-    # populate_many_to_many_field(Book, Language, 'languages', './main/dump/books_book_languages.csv') 
-    # populate_many_to_many_field(Book, Author, 'authors', './main/dump/books_book_authors.csv') 
+    populate_many_to_many_field(Book, Language, 'languages', './main/dump/books_book_languages.csv') 
+    populate_many_to_many_field(Book, Author, 'authors', './main/dump/books_book_authors.csv') 
     populate_many_to_many_field(Book, Subject, 'subjects', './main/dump/books_book_subjects.csv') 
     populate_many_to_many_field(Book, Bookshelf, 'bookshelves', './main/dump/books_book_bookshelves.csv') 
 
