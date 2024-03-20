@@ -6,7 +6,6 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    needs: postgresql-setup 
     env: 
       DEBUG: True
       SECRET_KEY: changeme!
