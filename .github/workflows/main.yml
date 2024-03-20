@@ -28,6 +28,6 @@ jobs:
 
     - name: Run tests
       run: |
-        python manage.py test
+        python library/manage.py test
 
     # Add more steps for building, deploying, etc. as needed
