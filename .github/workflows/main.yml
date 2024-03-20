@@ -21,13 +21,18 @@ jobs:
           --health-timeout 5s 
           --health-retries 5 
     steps: 
+      - name: Install postgresql-client (psql)
+        run: |
+          apt update -y
+          apt install -y postgresql-client
+          psql --version
       - name: Wait for postgresql to start 
         run: | 
           timeout 30 bash -c 'until nc -z localhost 5432; do sleep 1; done' 
 
       - name: Create PostgreSQL Database 
         run: 
-          psql "postgresql://postgres:postgres@postgres:5432" <<EOF
+          psql "postgresql://postgres:postgres@locahost:5432" <<EOF
             CREATE DATABASE library_db5; 
           EOF
         env: 
