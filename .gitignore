@@ -1,5 +1,4 @@
 db.sqlite3 
-requirements.txt 
 *.pyc 
 __pycache__ 
 .env 
