@@ -56,7 +56,7 @@ jobs:
         sleep 10s 
         psql -h localhost -U postgres --password postgres -c "CREATE DATABASE library_db5;" 
       env: 
-        PGPASSWORD: postgres 
+        POSTGRES_PASSWORD: postgres 
 
     - name: Install dependencies
       run: | 
