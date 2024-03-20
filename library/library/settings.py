@@ -14,8 +14,8 @@ from pathlib import Path
 from dotenv import load_dotenv  
 import os 
 
-load_dotenv() 
-
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env') 
+load_dotenv(dotenv_path)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -95,13 +95,20 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': os.getenv('DB_NAME'), 
-        'HOST': os.getenv('DB_HOST', 'localhost'), 
-        'PORT': os.getenv('DB_PORT', '5432'), 
-        'USER': os.getenv('DB_USER', 'postgres'), 
-        'PASSWORD': os.getenv('DB_PASSWORD', 'admin'), 
+        'HOST': os.getenv('DB_HOST'), 
+        'PORT': os.getenv('DB_PORT'), 
+        'USER': os.getenv('DB_USER'), 
+        'PASSWORD': os.getenv('DB_PASSWORD'), 
     }
 }
 
+if os.getenv('GITHUB_ACTIONS') == 'true': 
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
