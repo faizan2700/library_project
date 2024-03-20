@@ -4,27 +4,33 @@ run-name: Continuous Integration
 on: [push, pull_request]
 
 jobs:
-  postgresql-setup:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - name: Wait for PostgreSQL to start
-        run: |
-          timeout 30 bash -c 'until nc -z localhost 5432; do sleep 1; done'
-
-      - name: Create PostgreSQL database
-        run: |
-          sudo psql -U postgres -h localhost -W postgres -c "CREATE DATABASE library_db5;"
+  postgresql-setup: 
+    runs-on: ubuntu-latest 
+    container: node:10.18-jessie 
+    services: 
+      postgres: 
+        image: postgres 
+        env: 
+          POSTGRES_PASSWORD: postgres 
+          options: >- 
+            --health-cmd pg_isready 
+            --health-interval 10s 
+            --health-timeout 5s 
+            --health-retries 5 
+          ports: 
+            - 5432: 5432 
+    steps:  
+      - name: Check out the repository code 
+        uses: actions/checkout@v4 
+      - name: Install dependencies 
+        run: npm ci 
+      - name: Connect to postgreSQL 
+        run: node client.js 
+        env: 
+          POSTGRES_HOST: postgres 
+          POSTGRES_PORT: 5432 
+      - name: Create database 
+        run: sudo psql -U postgres -h localhost -c "CREATE DATABASE library_db5;"
 
   build:
     runs-on: ubuntu-latest
