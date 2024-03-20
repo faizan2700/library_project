@@ -4,43 +4,19 @@ run-name: Continuous Integration
 on: [push, pull_request]
 
 jobs:
-  postgresql-setup: 
-    runs-on: ubuntu-latest 
-    services: 
-      postgres: 
-        image: postgres 
-        env: 
-          POSTGRES_USER: postgres 
-          POSTGRES_PASSWORD: postgres 
-          POSTGRES_DB: postgres 
-        ports: 
-          - 5432:5432
-        options: 
-          --health-cmd pg_isready 
-          --health-interval 10s 
-          --health-timeout 5s 
-          --health-retries 5 
-    steps: 
-      - name: Install postgresql-client (psql)
-        run: |
-          sudo apt update -y
-          sudo apt install -y postgresql-client
-          sudo psql --version
-      - name: Wait for postgresql to start 
-        run: | 
-          timeout 30 bash -c 'until nc -z localhost 5432; do sleep 1; done' 
-
-      # - name: Create PostgreSQL Database 
-      #   run: 
-      #     psql "postgresql://postgres:postgres@localhost:5432" <<EOF
-      #       CREATE DATABASE library_db5; 
-      #     EOF
-      #   env: 
-      #     POSTGRES_PASSWORD: postgres 
-
   build:
     runs-on: ubuntu-latest
-    needs: postgresql-setup
+    needs: postgresql-setup 
+    env: 
+      DEBUG: True
+      SECRET_KEY: changeme!
+      ALLOWED_HOSTS: localhost,127.0.0.1
+      DATABASE_URL: sqlite:////tmp/db.sqlite3
+      CORS_ORIGIN_WHITELIST: "http://localhost,http://127.0.0.1"
+      CSRF_TRUSTED_ORIGINS: "http://localhost"
+      REGISTER_VERIFICATION_URL: "http://localhost:4200/verify-user/"
+      RESET_PASSWORD_VERIFICATION_URL: "http://localhost:4200/reset-password/"
+      REGISTER_EMAIL_VERIFICATION_URL: "http://localhost:4200/verify-email/"
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -49,14 +25,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x' # Replace '3.x' with your desired Python version
-
-    - name: Create PostgreSQL Database 
-      run: | 
-        sudo service postgresql start 
-        sleep 10s 
-        psql -h localhost -U postgres --password postgres -c "CREATE DATABASE library_db5;" 
-      env: 
-        POSTGRES_PASSWORD: postgres 
 
     - name: Install dependencies
       run: | 
