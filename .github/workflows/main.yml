@@ -23,9 +23,9 @@ jobs:
     steps: 
       - name: Install postgresql-client (psql)
         run: |
-          apt update -y
-          apt install -y postgresql-client
-          psql --version
+          sudo apt update -y
+          sudo apt install -y postgresql-client
+          sudo psql --version
       - name: Wait for postgresql to start 
         run: | 
           timeout 30 bash -c 'until nc -z localhost 5432; do sleep 1; done' 
