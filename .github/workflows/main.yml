@@ -5,7 +5,7 @@ on: [push, pull_request]
 
 jobs:
   postgresql-setup: 
-    runs-on: ubuntu-lastest 
+    runs-on: ubuntu-latest 
     services: 
       postgres: 
         image: postgres 
