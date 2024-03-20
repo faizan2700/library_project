@@ -32,7 +32,7 @@ jobs:
 
       - name: Create PostgreSQL Database 
         run: 
-          psql "postgresql://postgres:postgres@locahost:5432" <<EOF
+          psql "postgresql://postgres:postgres@localhost:5432" <<EOF
             CREATE DATABASE library_db5; 
           EOF
         env: 
