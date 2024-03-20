@@ -52,6 +52,8 @@ jobs:
 
     - name: Create PostgreSQL Database 
       run: | 
+        sudo service postgresql start 
+        sleep 10s 
         sudo psql -U postgres psql -c "CREATE DATABASE library_db5;"
 
     - name: Install dependencies
