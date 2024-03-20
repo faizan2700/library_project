@@ -29,7 +29,8 @@ jobs:
     - name: Run tests
       run: |
         source venv/bin/activate 
-        pip install --upgrade setuptools
-        python library/manage.py test
+        pip install --upgrade setuptools 
+        cd library 
+        python manage.py test
 
     # Add more steps for building, deploying, etc. as needed
