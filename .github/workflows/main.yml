@@ -24,7 +24,7 @@ jobs:
 
       - name: Create PostgreSQL database
         run: |
-          psql -U postgres -h localhost -c "CREATE DATABASE library_db5;"
+          sudo psql -U postgres -h localhost -c "CREATE DATABASE library_db5;"
 
   build:
     runs-on: ubuntu-latest
