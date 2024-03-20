@@ -54,7 +54,7 @@ jobs:
       run: | 
         sudo service postgresql start 
         sleep 10s 
-        sudo -u postgres psql -h localhost -U postgres -c "CREATE DATABASE library_db5;" 
+        sudo -u postgres psql -h localhost -U postgres --password postgres -c "CREATE DATABASE library_db5;" 
       env: 
         PGPASSWORD: postgres 
 
