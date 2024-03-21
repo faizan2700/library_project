@@ -49,8 +49,6 @@ class Author(models.Model):
     def __str__(self):
         """Return the name of the author."""
         return self.name
-    
-from django.db import models
 
 class Bookshelf(models.Model):
     """
