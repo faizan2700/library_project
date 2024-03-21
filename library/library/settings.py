@@ -106,6 +106,7 @@ if os.getenv('GITHUB_ACTIONS') == 'true':
     DATABASES['default']['USER'] = 'postgres' 
     DATABASES['default']['PASSWORD'] = 'postgres' 
     DATABASES['default']['NAME'] = 'db_test' 
+    print(DATABASES) 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
