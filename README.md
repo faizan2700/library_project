@@ -1,5 +1,3 @@
-database model 
-This project uses gutenberg database dump. That database dump has 6 database tables as described below:
 # Gutenberg Database Clone
 
 Welcome to the Gutenberg Database Clone project! 📚
@@ -35,12 +33,13 @@ To prepare the database for use, follow these steps:
 2. Run the following commands:
    ```bash
    python3 manage.py migrate
-   python3 manage.py populate_db 
-   python3 manage.py clean_db 
+   python3 manage.py populate_db  
+   ```
 This will populate all the necessary tables with data.
 3. To clean the database, run: 
     ```bash 
     python3 manage.py clean_db 
+    ```
 python3 manage.py clean_db
 
 This command will truncate all the tables and remove the data.
