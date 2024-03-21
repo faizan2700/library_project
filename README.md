@@ -37,7 +37,7 @@ To prepare the database for use, follow these steps:
    ```
 This will populate all the necessary tables with data.
 3. To clean the database, run: 
-    ```bash 
+    ```bash
     python3 manage.py clean_db 
     ```
 python3 manage.py clean_db
