@@ -42,20 +42,7 @@ To prepare the database for use, follow these steps:
 
 This command will truncate all the tables and remove the data.
 
-## Contribution Guidelines
-We welcome contributions from developers, researchers, and enthusiasts alike! If you'd like to contribute to the Gutenberg Database Clone project, please follow these guidelines:
-
-- Fork the repository and create a new branch for your contribution.
-- Ensure your code follows the project's coding standards and conventions.
-- Submit a pull request with a clear description of your changes and their purpose.
-- Participate in discussions, code reviews, and issue tracking to help improve the project collaboratively.
-
-## License
-This project is licensed under the MIT License, which allows for free use, modification, and distribution of the software.
-
-
-
-serializers: 
+## serializers 
 1. This projects make use of serializers as it builds rest based backend of gutenberg project. There is book serializer, which converts all of its fields to json representation including many to many fields, I am using SerializerMethod field that uses class method to get all the author names and other many to many field and convert them to json format. 
 2. There is no particular validation is required in this use case. 
 3. For ordering fields correctly, meta class fields attribute is set properly. 
@@ -100,6 +87,18 @@ serializers:
 ## Query Optimization and Performance 
 1. This project does not make use of any heavy queries other than for fetch complete queryset of books from database, it uses prefetch over that to fetch many to many fields so that we dont have to fetch them again while serializing related objects. 
 2. Django Debug toolbar is used to see how many queries are being made for processing particular view. 
+
+## Contribution Guidelines
+We welcome contributions from developers, researchers, and enthusiasts alike! If you'd like to contribute to the Gutenberg Database Clone project, please follow these guidelines:
+
+- Fork the repository and create a new branch for your contribution.
+- Ensure your code follows the project's coding standards and conventions.
+- Submit a pull request with a clear description of your changes and their purpose.
+- Participate in discussions, code reviews, and issue tracking to help improve the project collaboratively.
+
+## License
+This project is licensed under the MIT License, which allows for free use, modification, and distribution of the software.
+
 
 3rd party libraries we are using and why 
 code documentation : what tools are we using for that. 
