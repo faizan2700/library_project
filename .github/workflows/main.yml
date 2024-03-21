@@ -1,35 +1,35 @@
-name: CI/CD Pipeline 
-run-name: Continuous Integration 
+# name: CI/CD Pipeline 
+# run-name: Continuous Integration 
 
-on: [push, pull_request]
+# on: [push, pull_request]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
       
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x' # Replace '3.x' with your desired Python version
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: '3.x' # Replace '3.x' with your desired Python version
 
-    - name: Install dependencies
-      run: | 
-        sudo apt-get install libyaml-dev
-        pip cache purge 
-        python3 -m pip install virtualenv 
-        python3 -m virtualenv venv 
-        source venv/bin/activate
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+#     - name: Install dependencies
+#       run: | 
+#         sudo apt-get install libyaml-dev
+#         pip cache purge 
+#         python3 -m pip install virtualenv 
+#         python3 -m virtualenv venv 
+#         source venv/bin/activate
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
 
-    - name: Run tests
-      run: |
-        source venv/bin/activate 
-        pip install --upgrade setuptools 
-        cd library 
-        python manage.py test
+#     - name: Run tests
+#       run: |
+#         source venv/bin/activate 
+#         pip install --upgrade setuptools 
+#         cd library 
+#         python manage.py test
 
     # Add more steps for building, deploying, etc. as needed
