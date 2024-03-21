@@ -94,6 +94,11 @@ This command will truncate all the tables and remove the data.
 1. API documenation is prepared with Swagger API library. you can visit /swagger endpoints for the same afte running project. 
 2. With Swagger UI, developers can test API endpoints in real-time, sending requests and examining responses without the need for external tools.
 
+## Codebase Documentation 
+1. Docstring are added in functions and classes for ease of readability and collaboration in this project. 
+2. Currently no library is being used for generating documentation automatically, but we can use sphinx for that purpose. 
+
+
 ## Contribution Guidelines
 We welcome contributions from developers, researchers, and enthusiasts alike! If you'd like to contribute to the Gutenberg Database Clone project, please follow these guidelines:
 
