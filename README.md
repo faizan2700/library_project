@@ -98,6 +98,13 @@ This command will truncate all the tables and remove the data.
 1. Docstring are added in functions and classes for ease of readability and collaboration in this project. 
 2. Currently no library is being used for generating documentation automatically, but we can use sphinx for that purpose. 
 
+## Further Improvements 
+1. We can use docker to containerize and manage this application. 
+2. We can use Github actions to set continuous deployment pipeline in place. That will automatically deploy our application to server. 
+3. We can Use third party tools like Open telemetry to get better insights to our database performance and metrics, we will be able to monitor each query that our application is performing on our database. 
+4. We can separate environments like development, staging and production separating configurations. 
+5. We can use 12 Factor app approach to improve the code quality of this app. 
+
 ## Contribution Guidelines
 We welcome contributions from developers, researchers, and enthusiasts alike! If you'd like to contribute to the Gutenberg Database Clone project, please follow these guidelines:
 
@@ -108,17 +115,3 @@ We welcome contributions from developers, researchers, and enthusiasts alike! If
 
 ## License
 This project is licensed under the MIT License, which allows for free use, modification, and distribution of the software.
-
-
-3rd party libraries we are using and why 
-code documentation : what tools are we using for that. 
-docker and deployment guide 
-N+1 queries problem and its solution 
-load testing 
-12 factor app 
-django best practices that this project follows. 
-environment separation 
-api documentation 
-continuous integration and deployment pipeline. 
-latency 
-django coding principle and philosophies. 
