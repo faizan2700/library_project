@@ -42,7 +42,7 @@ To prepare the database for use, follow these steps:
 
 This command will truncate all the tables and remove the data.
 
-## serializers 
+## Serializers 
 1. This projects make use of serializers as it builds rest based backend of gutenberg project. There is book serializer, which converts all of its fields to json representation including many to many fields, I am using SerializerMethod field that uses class method to get all the author names and other many to many field and convert them to json format. 
 2. There is no particular validation is required in this use case. 
 3. For ordering fields correctly, meta class fields attribute is set properly. 
