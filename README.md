@@ -30,12 +30,11 @@ Additionally, the project utilizes the Django `User` model, which utilizes an ab
 To prepare the database for use, follow these steps:
 
 1. Clone the repository to your local machine.
-2. Run the following commands:
+2. Run the following commands, This will populate all the necessary tables with data.:
    ```bash
    python3 manage.py migrate
    python3 manage.py populate_db  
    ```
-This will populate all the necessary tables with data.
 3. To clean the database, run: 
    ```bash
    python3 manage.py clean_db
