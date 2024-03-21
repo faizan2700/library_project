@@ -108,7 +108,7 @@ if os.getenv('GITHUB_ACTIONS') == 'true':
             'ENGINE': 'django.db.backends.postgresql',
             # 'NAME': BASE_DIR / 'db.sqlite3',
             'NAME': 'db_test', 
-            'HOST': 'localhost', 
+            'HOST': 'postgres', 
             'PORT': '5432', 
             'USER': 'postgres', 
             'PASSWORD': 'postgres', 
