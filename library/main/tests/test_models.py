@@ -76,6 +76,9 @@ class TestManyToManyFieldBook(TestCase):
     """
 
     def test_authors_added1(self): 
+        """
+        Test that authors are added on book object successfully with no duplicates.
+        """
         book = Book.objects.create(title='book1', gutenberg_id=1) 
         author = Author.objects.create(name='author1') 
 
@@ -95,6 +98,9 @@ class TestManyToManyFieldBook(TestCase):
         Author.objects.all().delete() 
     
     def test_authors_added2(self): 
+        """
+        Test that authors are added on book object successfully with duplicates.
+        """
         book = Book.objects.create(title='book1', gutenberg_id=1) 
         author1 = Author.objects.create(name='author1') 
         author2 = Author.objects.create(name='author2') 
@@ -111,6 +117,9 @@ class TestManyToManyFieldBook(TestCase):
         Book.objects.all().delete() 
 
     def test_authors_removed1(self): 
+        """
+        Test that authors are removed from book object successfully (removing whats present).
+        """
         book1 = Book.objects.create(title='book1', gutenberg_id=1) 
         author1 = Author.objects.create(name='author1') 
         author2 = Author.objects.create(name='author2') 
@@ -121,17 +130,20 @@ class TestManyToManyFieldBook(TestCase):
         book1.authors.remove(author1) 
         self.assertEqual(book1.authors.all().count(), 0) 
 
-        book1.authors.add([author1, author2]) 
+        book1.authors.set([author1, author2]) 
         self.assertEqual(book1.authors.all().count(), 2) 
 
-        book1.authors.remove([author1, author2]) 
+        book1.authors.remove(author1, author2) 
         self.assertEqual(book1.authors.all().count(), 0) 
 
         book1.authors.clear() 
         Author.objects.all().delete() 
         Book.objects.all().delete() 
 
-    def test_authors_removed1(self): 
+    def test_authors_removed2(self): 
+        """
+        Test that authors are removed from book object successfully (removing whats not present)
+        """
         book1 = Book.objects.create(title='book1', gutenberg_id=1) 
         author1 = Author.objects.create(name='author1') 
         author2 = Author.objects.create(name='author2') 
@@ -150,6 +162,9 @@ class TestManyToManyFieldBook(TestCase):
 
     
     def test_books_authors_count1(self): 
+        """
+        Test if we are getting right aggregate for all authors that are added on book objects, unique records of (book_id, author_id). 
+        """
         book1 = Book.objects.create(title='book1', gutenberg_id=1) 
         book2 = Book.objects.create(title='book2', gutenberg_id=2) 
 
@@ -171,7 +186,9 @@ class TestManyToManyFieldBook(TestCase):
         Book.objects.all().delete() 
 
     def test_unique_authors_in_books(self): 
-        
+        """
+        Test if we are getting right aggregate for count of authors that are related to any book objects, unique records (author_id) with non-empty book_ids.
+        """
         book1 = Book.objects.create(title='book1', gutenberg_id=1) 
         book2 = Book.objects.create(title='book2', gutenberg_id=2) 
 
@@ -194,4 +211,119 @@ class TestManyToManyFieldBook(TestCase):
             .filter(num_authors__gt=0).values_list('authors').distinct().count() 
 
         self.assertEqual(unique_author_count, 3) 
+        book1.authors.clear() 
+        book2.authors.clear() 
 
+    def test_reverse_books_authors_add1(self): 
+        """
+        Test if we are correctly adding book to authors.
+        """
+        book = Book.objects.create(title='book1', gutenberg_id=1)  
+        author = Author.objects.create(name='author1')
+        author.books.add(book) 
+
+        self.assertEqual(book.authors.all().count(), 1) 
+
+        book.authors.clear() 
+        Book.objects.all().delete() 
+        Author.objects.all().delete() 
+
+    def test_reverse_books_authors_add2(self): 
+        """
+        Test if we are correctly adding book to authors.
+        """
+        book = Book.objects.create(title='book1', gutenberg_id=1) 
+        author = Author.objects.create(name='author1')
+
+        book.authors.set([author]) 
+        self.assertEqual(book.authors.all().count(), 1) 
+
+        book.authors.clear() 
+        Book.objects.all().delete() 
+        Author.objects.all().delete() 
+    
+    def test_reverse_books_authors_remove1(self): 
+        """
+        Test if we are correctly removing book from author
+        """
+        book = Book.objects.create(title='book1', gutenberg_id=1) 
+        author = Author.objects.create(name='author') 
+
+        book.authors.add(author) 
+        self.assertEqual(book.authors.all().count(), 1) 
+
+        book.authors.remove(author) 
+        self.assertEqual(book.authors.all().count(), 0) 
+
+        book.authors.clear() 
+        Author.objects.all().delete() 
+        Book.objects.all().delete() 
+    
+    def test_reverse_books_authors_remove2(self): 
+        """
+        Test if we are correctly removing book from author. 
+        """
+        book = Book.objects.create(title='book1', gutenberg_id=1) 
+        author = Author.objects.create(name='author') 
+
+        book.authors.add(author) 
+        self.assertEqual(book.authors.all().count(), 1) 
+
+        book.authors.clear() 
+        self.assertEqual(book.authors.all().count(), 0) 
+
+        book.authors.clear() 
+        Author.objects.all().delete() 
+        Book.objects.all().delete() 
+
+    def test_reverse_books_authors_count(self): 
+        """
+        Test if we are correctly counting all books and related authors, unique (book_id, author_id).
+        """
+        book1 = Book.objects.create(title='book1', gutenberg_id=1) 
+        book2 = Book.objects.create(title='book2', gutenberg_id=2) 
+
+        author1 = Author.objects.create(name='author1') 
+        author2 = Author.objects.create(name='author2') 
+        author3 = Author.objects.create(name='author3') 
+
+        book1.authors.set([author1, author2]) 
+        book2.authors.set([author2, author3]) 
+
+        books_count = Author.objects.annotate(num_books=Count('books')).aggregate(total_books=Sum('num_books')).get('total_books', 0)
+        self.assertEqual(books_count, 4) 
+
+        book1.authors.clear() 
+        book2.authors.clear()
+        Author.objects.all().delete() 
+        Book.objects.all().delete() 
+
+    def test_reverse_unique_books_in_authors(self): 
+        """
+        
+        """ 
+        book1 = Book.objects.create(title='book1', gutenberg_id=1) 
+        book2 = Book.objects.create(title='book2', gutenberg_id=2) 
+
+        author1 = Author.objects.create(name='author1') 
+        author2 = Author.objects.create(name='author2') 
+        author3 = Author.objects.create(name='author3') 
+
+        book1.authors.set([author1, author2]) 
+        book2.authors.set([author2, author3]) 
+
+        qs = Book.objects.all().filter(authors__isnull=False) \
+            .annotate(author_count=Count('authors')) \
+            .filter(author_count__gt=0)
+        book_count = qs.count() 
+
+        self.assertEqual(book_count, 2) 
+
+        book_count = Author.objects.all().filter(books__isnull=False) \
+            .annotate(num_books=Count('books')).filter(num_books__gt=0).values_list('books').distinct().count() 
+        self.assertEqual(book_count, 2) 
+
+        book1.authors.clear() 
+        book2.authors.clear()
+        Author.objects.all().delete() 
+        Book.objects.all().delete() 
