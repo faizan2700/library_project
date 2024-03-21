@@ -1,1 +1,8 @@
 psql -U postgres -d library_db -c "\copy (SELECT * FROM books_subject) TO 'books_subject.csv' WITH CSV HEADER ENCODING 'UTF-8';" --password=admin 
+1. How context manager handle resoure managment 
+2. How you would handle connection pooling in flask application 
+3. N+1 Selects problem and its solution 
+4. how are you going to handle deadlock in dependencies in large scale flask application 
+5. How are you going to use multithreading for long running tasks in FastAPI 
+6. How can you use generators to significantly improve performane of python program 
+7. What practice to follow for efficient and readable python program. 
