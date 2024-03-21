@@ -88,7 +88,11 @@ This command will truncate all the tables and remove the data.
 1. This project focuses on optimizing queries to ensure efficient database interactions. The primary optimization strategy involves minimizing heavy queries, particularly when fetching complete querysets of books from the database. To achieve this, the project utilizes prefetching to retrieve Many-to-Many fields along with the main queryset. This approach reduces the need for additional queries when serializing related objects.
 2. Django Debug Toolbar is integrated into the project to monitor and analyze the number of queries executed during the processing of specific views. This tool provides valuable insights into query performance, allowing developers to identify and address potential bottlenecks or inefficiencies in the application's database interactions.
 3. As the project evolves and scales, periodic performance profiling and optimization efforts may be conducted to identify areas for improvement and ensure continued optimal performance.
-4. Consideration may be given to database schema design optimizations, such as denormalization or partitioning, to streamline data access and improve query performance in scenarios with large datasets or complex relationships.
+4. Consideration may be given to database schema design optimizations, such as denormalization or partitioning, to streamline data access and improve query performance in scenarios with large datasets or complex relationships. 
+
+## API Documentation 
+1. API documenation is prepared with Swagger API library. you can visit /swagger endpoints for the same afte running project. 
+2. With Swagger UI, developers can test API endpoints in real-time, sending requests and examining responses without the need for external tools.
 
 ## Contribution Guidelines
 We welcome contributions from developers, researchers, and enthusiasts alike! If you'd like to contribute to the Gutenberg Database Clone project, please follow these guidelines:
@@ -97,10 +101,6 @@ We welcome contributions from developers, researchers, and enthusiasts alike! If
 - Ensure your code follows the project's coding standards and conventions.
 - Submit a pull request with a clear description of your changes and their purpose.
 - Participate in discussions, code reviews, and issue tracking to help improve the project collaboratively.
-
-## API Documentation 
-1. API documenation is prepared with Swagger API library. you can visit /swagger endpoints for the same afte running project. 
-2. With Swagger UI, developers can test API endpoints in real-time, sending requests and examining responses without the need for external tools.
 
 ## License
 This project is licensed under the MIT License, which allows for free use, modification, and distribution of the software.
