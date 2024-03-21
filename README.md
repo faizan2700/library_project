@@ -108,3 +108,8 @@ We welcome contributions from developers, researchers, and enthusiasts alike! If
 
 ## License
 This project is licensed under the MIT License, which allows for free use, modification, and distribution of the software.
+
+1. add cache 
+2. add indexing 
+3. add more libraries
+4. Add telemetry 
