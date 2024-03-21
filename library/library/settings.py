@@ -103,10 +103,17 @@ DATABASES = {
 }
 
 if os.getenv('GITHUB_ACTIONS') == 'true': 
-    DATABASES['default']['USER'] = 'postgres' 
-    DATABASES['default']['PASSWORD'] = 'postgres' 
-    DATABASES['default']['NAME'] = 'db_test' 
-    print(DATABASES) 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            # 'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': 'db_test', 
+            'HOST': 'localhost', 
+            'PORT': '5432', 
+            'USER': 'postgres', 
+            'PASSWORD': 'postgres', 
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
