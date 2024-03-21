@@ -98,7 +98,6 @@ This command will truncate all the tables and remove the data.
 1. Docstring are added in functions and classes for ease of readability and collaboration in this project. 
 2. Currently no library is being used for generating documentation automatically, but we can use sphinx for that purpose. 
 
-
 ## Contribution Guidelines
 We welcome contributions from developers, researchers, and enthusiasts alike! If you'd like to contribute to the Gutenberg Database Clone project, please follow these guidelines:
 
