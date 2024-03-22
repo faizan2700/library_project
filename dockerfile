@@ -1,17 +1,24 @@
-FROM python:3.10 
+# Use the official Python 3.10 image as base
+FROM python:3.10
 
-ENV PYTHONDONTWRITEBYTECODE 1 
-ENV PYTHONUNBUFFERED 1 
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app 
+# Set the working directory in the container
+WORKDIR /app
 
-RUN apt-get update \ 
-    && apt-get install -y --no-install-recommends \ 
-    postgresql-client \ 
-    && rm -rf /var/lib/apt/lists/*
+# Copy the dependencies file to the working directory
+COPY requirements.txt /app/
 
-COPY requirements.txt /app/ 
-RUN pip install --no-cache-dir -r requirements.txt 
-COPY . /app/ 
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "library.wsgi:application"]
+# Copy the Django project files to the working directory
+COPY . /app/
+
+# Copy the test and server startup script
+COPY docker-entrypoint.sh /app/
+
+# Run the tests and start the server if tests pass
+CMD ["./docker-entrypoint.sh"]

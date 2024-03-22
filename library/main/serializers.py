@@ -57,21 +57,21 @@ class BookSerializer(ModelSerializer):
 
     def get_authors(self, book): 
         """Return a list of author names associated with the book."""
-        return book.authors.all().values_list('name', flat=True) 
+        return list(book.authors.all().values_list('name', flat=True))
     
     def get_languages(self, book): 
         """Return a list of author names associated with the book."""
-        return book.languages.all().values_list('code', flat=True) 
+        return list(book.languages.all().values_list('code', flat=True))
     
     def get_subjects(self, book): 
         """Return a list of subject names associated with the book."""
-        return book.subjects.all().values_list('name', flat=True) 
+        return list(book.subjects.all().values_list('name', flat=True))
 
     def get_shelves(self, book): 
         """Return a list of shelf names associated with the book."""
-        return book.bookshelves.all().values_list('name', flat=True)   
+        return list(book.bookshelves.all().values_list('name', flat=True))
     
     def get_formats(self, book): 
         """Return a list of URLs for book formats associated with the book."""
-        return Format.objects.filter(book=book).values_list('url', flat=True) 
+        return list(Format.objects.filter(book=book).values_list('url', flat=True))
         
