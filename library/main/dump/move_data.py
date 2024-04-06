@@ -36,20 +36,18 @@ def populate_table(file_path, model):
 
 def populate_table_helper(): 
     output = populate_table('./main/dump/books_author.csv', Author)
-    print('Author table is populated successfully! records:', output) 
+    yield 'Author table is populated successfully! records:' +  str(output) 
     output = populate_table('./main/dump/books_book.csv', Book)
-    print('Book Table is populated successfully! records:', output) 
+    yield 'Book Table is populated successfully! records:' + str(output) 
     output = populate_table('./main/dump/books_format.csv', Format)
-    print('Format Table is populated successfully! records', output)
+    yield 'Format Table is populated successfully! records' + str(output)
     output = populate_table('./main/dump/books_language.csv', Language)
-    print('Language table is populated successfully! records:', output)
+    yield 'Language table is populated successfully! records:' + str(output)
     output = populate_table('./main/dump/books_subject.csv', Subject)
-    print('Subject table is populated successfully! records:', output) 
+    yield 'Subject table is populated successfully! records:' +  str(output)
     output = populate_table('./main/dump/books_bookshelf.csv', Bookshelf) 
-    print('Bookshelf table is populated successfully! records:', output) 
+    yield 'Bookshelf table is populated successfully! records:' + str(output) 
     
-    
-
 def populate_many_to_many_field(model1, model2, manager, file): 
     gen = read_file(file) 
     for d in gen: 
@@ -62,31 +60,38 @@ def populate_many_to_many_field(model1, model2, manager, file):
 def populate_many_to_many_field_helper(): 
     populate_many_to_many_field(Book, Language, 'languages', './main/dump/books_book_languages.csv') 
     total_book_languages_records = Book.objects.annotate(lang_count=Count('languages')).aggregate(lang_sum=Sum('lang_count')).get('lang_sum')
-    print('BookLanguages table is populated successfully! records:', total_book_languages_records) 
+    yield 'BookLanguages table is populated successfully! records:' + str(total_book_languages_records) 
     populate_many_to_many_field(Book, Author, 'authors', './main/dump/books_book_authors.csv')  
     total_book_author_records = Book.objects.annotate(author_count=Count('authors')).aggregate(author_sum=Sum('author_count')).get('author_sum') 
-    print('BookAuthors table is populated successfully! records:', total_book_author_records) 
+    yield 'BookAuthors table is populated successfully! records:' + str(total_book_author_records) 
     populate_many_to_many_field(Book, Subject, 'subjects', './main/dump/books_book_subjects.csv') 
     total_book_subject_records = Book.objects.annotate(subject_count=Count('subjects')).aggregate(subject_sum=Sum('subject_count')).get('subject_sum')  
-    print('BookSubjects table is populated successfully! records:', total_book_subject_records) 
+    yield 'BookSubjects table is populated successfully! records:' + str(total_book_subject_records) 
     populate_many_to_many_field(Book, Bookshelf, 'bookshelves', './main/dump/books_book_bookshelves.csv') 
     total_book_shelves_records = Book.objects.annotate(shelves_count=Count('bookshelves')).aggregate(shelves_sum=Sum('shelves_count')).get('shelves_sum')  
-    print('Bookshelves table is populated successfully! records:', total_book_shelves_records)  
+    yield 'Bookshelves table is populated successfully! records:' + str(total_book_shelves_records)  
 
-def main():
-    populate_table_helper() 
-    populate_many_to_many_field_helper() 
+def main(): 
+    
+    for msg in populate_table_helper(): 
+        yield msg  
+    for msg in populate_many_to_many_field_helper(): 
+        yield msg  
     # clean_data() 
 
 def clean_data(): 
     Author.objects.all().delete() 
+    yield 'Author table truncated!!' 
     Subject.objects.all().delete() 
+    yield 'Subject table truncated!!' 
     Bookshelf.objects.all().delete() 
+    yield 'Bookshelf table truncated!!' 
     Language.objects.all().delete() 
+    yield 'Language table truncated!!' 
     Format.objects.all().delete() 
+    yield 'Format table truncated!!' 
     Book.objects.all().delete() 
-    print('All tables are truncated succesfully!') 
-    print('Author, Subject, Bookshelf, Language, Format, Book.') 
+    yield 'Book table truncated!!'  
 
 if __name__ == '__main__': 
     main() 

@@ -6,3 +6,4 @@ psql -U postgres -d library_db -c "\copy (SELECT * FROM books_subject) TO 'books
 5. How are you going to use multithreading for long running tasks in FastAPI 
 6. How can you use generators to significantly improve performane of python program 
 7. What practice to follow for efficient and readable python program. 
+8. DSA, django, python, coding challenges, N1 Queries, Decorators. 

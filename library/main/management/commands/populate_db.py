@@ -14,6 +14,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options): 
         """
         Executes the command to populate the database.
-        """
-        main() 
-        self.stdout.write(self.style.SUCCESS('****'))
+        """ 
+        for msg in main(): 
+            self.stdout.write(self.style.SUCCESS(msg))

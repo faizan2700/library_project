@@ -14,6 +14,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options): 
         """
         Executes the command to truncate all data from the database.
-        """
-        clean_data() 
-        self.stdout.write(self.style.SUCCESS('****'))
+        """ 
+        for msg in clean_data():  
+            self.stdout.write(self.style.SUCCESS(msg))
