@@ -7,3 +7,39 @@ psql -U postgres -d library_db -c "\copy (SELECT * FROM books_subject) TO 'books
 6. How can you use generators to significantly improve performane of python program 
 7. What practice to follow for efficient and readable python program. 
 8. DSA, django, python, coding challenges, N1 Queries, Decorators. 
+9. What service do you use to deploy backend system of django on AWS? What steps? 
+
+1. Advanced concets in python 
+Metaclasses: Metaclasses are classes that create classes. They introduce advanced concepts related to class creation and customization.
+Closures: Closures involve nested functions that remember and access variables from their enclosing lexical scope, even when those functions are invoked outside their original context.
+Concurrency: Python’s support for both multi-threading and multi-processing introduces challenges related to synchronization, shared resources, and thread safety.
+Memory Management: Understanding Python’s memory management, including concepts like reference counting and garbage collection, can be complex, especially for developers coming from languages with different memory models.
+Decorators and Metaprogramming: While decorators provide a concise and powerful way to modify behavior, they involve advanced metaprogramming concepts and can require a solid understanding of Python’s syntax and runtime model.
+
+Functional programming techniques
+Design patterns
+Metaprogramming and reflection
+Concurrency and parallelism
+Data serialization and persistence
+Web development frameworks
+Networking and socket programming
+GUI programming
+Data science and machine learning libraries 
+
+Threading 
+Regular Expressions
+Magic Methods 
+Generators 
+Collections 
+Decorators 
+Exception Handling 
+Lambda Function 
+Map Function 
+Itertools
+
+2. design patterns, solid principles, oop 
+3. unit testing with python, pytest using python 
+4. writing sql queries, advanced queries, what databases have you worked with. 
+5. Connecting aws lambda and mongo db. 
+6. what do you do to optimize performance of database (postgresql) queries. 
+7. 
